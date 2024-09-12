@@ -1,0 +1,60 @@
+
+{% load static %}
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+ {% for image in images %}
+
+          <div class="col-md-4 pop-up-element "  style="min-height:250px; " >
+            <div class="box " style="border:1px #333 solid; border-radius:10px; min-height:250px; max-height:700px; box-shadow: 0 4px 8px 0 #000, 0 6px 20px 0 #f0f0f0;">
+              <div class="img-box">
+
+              </div>
+              <div class="detail-box" >
+
+                   <p>
+                           {{image.duration}}
+                  </p>
+            <h5>{% if image.image1 %}
+                   {% with sliced_url=image.image1.url|slice:"16:" %}
+    <img src="{% static sliced_url  %}" alt="Uploaded Image 1" style="max-width: 200px; max-height: 200px;">
+{% endwith %} <p>{{ image.image1.name }}</p>
+                {% endif %}
+
+                <!-- Display image2 -->
+                {% if image.image2 %}
+                {% with sliced_url=image.image2.url|slice:"16:" %}
+    <img src="{% static sliced_url  %}" alt="Uploaded Image 1" style="max-width: 200px; max-height: 200px;">
+{% endwith %}
+                    <p>{{ image.image2.name|slice:'16:' }}</p>
+                {% endif %}
+
+
+                {% if image.video_file %}
+                {% with sliced_url=image.video_file.url|slice:"16:" %}
+     <video class="imgtrain"  controls autoplay loop muted poster="thumbnail.jpg" style="width:500px;">
+        <source src="{% static sliced_url  %}" type="video/mp4">
+        Your browser does not support the video tag.
+         </video>
+
+                {% endwith %}
+                    <p>{{ image.video_file.name|slice:'16:' }}</p>
+                {% endif %}
+
+                </h5>
+
+                <p> contact</a></p>
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
+
+</body>
+</html>
